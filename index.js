@@ -18,20 +18,12 @@ exports.handler = function(event, context, callback){
   console.log("1"+JSON.stringify(event));
   console.log("1"+JSON.stringify(context));
 
-  // if(event.hasOwnProperty('session')) //session from Alexa Request JSON
-  // {
-  //   console.log("RequestFromAlexaSkillKit");
-  //   //Trigger Alexa Function
-  //   var alexa = Alexa.handler(event, context);
-  //   alexa.registerHandlers(handlers); //handlers contain alexa-sdk function based intent logic
-  //   alexa.execute();
-  // }//FOR ALEXA SKILL
 
   if(event.hasOwnProperty('result'))//session from APIAI Webhook Request JSON
   {
     console.log("RequestFromAPI.AI");
     //Prepare API.AI Response
-    console.log(event.originalRequest);
+    console.log(event.originalRequest.data.postback.data);
     
     }//FOR API.AI CONTEXTS
 
