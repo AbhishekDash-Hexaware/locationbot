@@ -22,6 +22,7 @@ exports.handler = function(event, context, callback){
   if(event.hasOwnProperty('result'))//session from APIAI Webhook Request JSON
   {
   	if (event.result.action=="input.welcome"){
+  		console.log(event.originalRequest.data.payload)
   		if(event.originalRequest.data.payload=="FACEBOOK_LOCATION"){
   			console.log("inside sending address");
   				findlocation(event);
