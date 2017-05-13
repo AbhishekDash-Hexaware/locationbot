@@ -23,9 +23,11 @@ exports.handler = function(event, context, callback){
   {
   	if (event.result.action=="input.welcome"){
   		if(event.originalRequest.data.payload=="FACEBOOK_LOCATION"){
+  			console.log("inside sending address");
   				findlocation(event);
   		}
   		else{
+  			console.log("inside send button");
   			 sendbutton();
 	}
     
