@@ -59,6 +59,7 @@ request(options, function (error, response, body) {
                     "source": "DuckDuckGo"
                   };
   	context.succeed(facebookResponse);
+  	console.log("sent")
 });
     
     }//FOR API.AI CONTEXTS
