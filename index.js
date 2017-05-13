@@ -22,7 +22,25 @@ exports.handler = function(event, context, callback){
   if(event.hasOwnProperty('result'))//session from APIAI Webhook Request JSON
   {
   	if (event.result.action=="input.welcome"){
-    console.log("got here to find address");
+  		if(event.originalRequest.data.payload=="FACEBOOK_LOCATION"){
+  				findlocation(event);
+  		}
+  		else{
+  			 sendbutton();
+	}
+    
+    }//FOR API.AI CONTEXTS
+
+else
+  {
+
+      console.log("Unknown Source");
+  }//FOR UNKNOWN SOURCES
+}
+
+function sendbutton(){
+	    console.log("got here to send butoon");
+	
     // consle.log(JSON.parse(event).result.action)
     var facebookResponse={
                	  "speech": "",
@@ -41,53 +59,58 @@ exports.handler = function(event, context, callback){
                     "source": "DuckDuckGo"
                   };
     context.succeed(facebookResponse);
-
-
-    // console.log(event.originalRequest.data.postback.data);
-    // var lat =event.originalRequest.data.postback.data.lat;
-    // var long =event.originalRequest.data.postback.data.long;
-    // var coordinate= (lat+","+long).toString();
-
-// 	var options = { method: 'POST',
-//   	url: 'https://maps.googleapis.com/maps/api/geocode/json',
-//   	qs: 
-//    { latlng: coordinate,
-//      key: 'AIzaSyCyDHNIxXBmoO8EHoJJK8gAfR5rO55BTX4' },
-//   	headers: 
-//    { 'postman-token': '4f2daca8-4b06-1328-0317-a40b9ea7a2ac',
-//      'cache-control': 'no-cache',
-//      'app-id': '95e202a2',
-//      'app-key': '562f45d3d9c8a9e2871825a93bb34807',
-//      'content-type': 'application/json' } };
-
-// request(options, function (error, response, body) {
-//   if (error) throw new Error(error);
-
-//   	console.log(JSON.parse(body).results[0].formatted_address);
-//   	address=JSON.parse(body).results[0].formatted_address;
-//   	var facebookResponse={
-//                	  "speech": "",
-//                     "displayText": "",
-//                     "data": {
-//                       "facebook": {
-//                                 "text":address
-//                             }
-//                     },
-//                     "contextOut": [],
-//                     "source": "DuckDuckGo"
-//                   };
-//   	context.succeed(facebookResponse);
-//   	console.log("sent")
-// });
 }
-    
-    }//FOR API.AI CONTEXTS
 
-else
-  {
-      console.log("Unknown Source");
-  }//FOR UNKNOWN SOURCES
-};
+
+
+
+function findlocation(event){
+console.log(event.originalRequest.data.postback.data);
+    var lat =event.originalRequest.data.postback.data.lat;
+    var long =event.originalRequest.data.postback.data.long;
+    var coordinate= (lat+","+long).toString();
+
+	var options = { method: 'POST',
+  	url: 'https://maps.googleapis.com/maps/api/geocode/json',
+  	qs: 
+   { latlng: coordinate,
+     key: 'AIzaSyCyDHNIxXBmoO8EHoJJK8gAfR5rO55BTX4' },
+  	headers: 
+   { 'postman-token': '4f2daca8-4b06-1328-0317-a40b9ea7a2ac',
+     'cache-control': 'no-cache',
+     'app-id': '95e202a2',
+     'app-key': '562f45d3d9c8a9e2871825a93bb34807',
+     'content-type': 'application/json' } };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  	console.log(JSON.parse(body).results[0].formatted_address);
+  	address=JSON.parse(body).results[0].formatted_address;
+  	var facebookResponse={
+               	  "speech": "",
+                    "displayText": "",
+                    "data": {
+                      "facebook": {
+                                "text":address
+                            }
+                    },
+                    "contextOut": [],
+                    "source": "DuckDuckGo"
+                  };
+  	context.succeed(facebookResponse);
+  	console.log("sent");
+});
+}
+
+
+
+
+
+
+
+
+
 //===============================================ALEXA SKILL INTENT CONTAINER================================================
 //ALEXA SKILLS CONTAINER
 //var handlers contain all alexa intents sdk style.
@@ -95,3 +118,4 @@ var handlers = sessionHandlers;
 //=================================================API.AI CONTEXTS CONTAINER=================================================
 
 //==============================================SERVER HOSTING CODE BLOCK====================================================
+}
