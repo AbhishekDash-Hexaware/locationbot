@@ -46,7 +46,7 @@ request(options, function (error, response, body) {
   if (error) throw new Error(error);
 
   	console.log(JSON.parse(body).results[0].formatted_address);
-  	address=JSON.stringify(body).results[0].formatted_address;
+  	address=JSON.parse(body).results[0].formatted_address;
   	context.succeed(facebookResponse);
 });
 
