@@ -60,8 +60,6 @@ request(options, function (error, response, body) {
                   };
   	context.succeed(facebookResponse);
 });
-
-
     
     }//FOR API.AI CONTEXTS
 
