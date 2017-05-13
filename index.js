@@ -24,7 +24,9 @@ exports.handler = function(event, context, callback){
     console.log("RequestFromAPI.AI");
     console.log("got here");
     console.log(event.originalRequest.data.postback.data);
-
+    var lat =event.originalRequest.data.postback.data.lat;
+    var long =event.originalRequest.data.postback.data.long;
+    var coordinate= (lat+","+long).toString();
 
 
     var request = require("request");
@@ -32,7 +34,7 @@ exports.handler = function(event, context, callback){
 	var options = { method: 'POST',
   	url: 'https://maps.googleapis.com/maps/api/geocode/json',
   	qs: 
-   { latlng: '12.82514,80.2164979',
+   { latlng: coordinate,
      key: 'AIzaSyCyDHNIxXBmoO8EHoJJK8gAfR5rO55BTX4' },
   	headers: 
    { 'postman-token': '4f2daca8-4b06-1328-0317-a40b9ea7a2ac',
