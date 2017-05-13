@@ -30,9 +30,7 @@ exports.handler = function(event, context, callback){
   			console.log("inside send button");
   			 sendbutton();
 	}
-    
-    }//FOR API.AI CONTEXTS
-
+    }
 else
   {
 
