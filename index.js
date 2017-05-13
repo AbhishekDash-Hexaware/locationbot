@@ -63,16 +63,12 @@ else
 //var handlers contain all alexa intents sdk style.
 var handlers = sessionHandlers;
 //=================================================API.AI CONTEXTS CONTAINER=================================================
-
-
-
-
 var facebookResponse={
                	  "speech": "",
                     "displayText": "",
                     "data": {
                       "facebook": {
-                                "text":busFinalData
+                                "text":address
                             }
                     },
                     "contextOut": [],
