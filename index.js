@@ -9,7 +9,7 @@ var port = process.env.PORT || 3000;
 var Alexa = require('alexa-sdk');
 var sessionHandlers=require('./src/alexa.js');
 var request=require('request');
-
+var address;
 //dependencies.
 //=======================================HANDLER FUNCTION FOR AWS LAMBDA FOR CHANNEL DETECTION=====================================
 //handler function for AWS Lambda
@@ -21,8 +21,7 @@ exports.handler = function(event, context, callback){
 
   if(event.hasOwnProperty('result'))//session from APIAI Webhook Request JSON
   {
-    console.log("RequestFromAPI.AI");
-    console.log("got here");
+    console.log("got here to find address");
     console.log(event.originalRequest.data.postback.data);
     var lat =event.originalRequest.data.postback.data.lat;
     var long =event.originalRequest.data.postback.data.long;
@@ -46,7 +45,8 @@ exports.handler = function(event, context, callback){
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
 
-  console.log(JSON.parse(body).results[0].formatted_address);
+  	address=body.results[0].formatted_address;
+  	context.succeed(facebookResponse);
 });
 
 
@@ -67,11 +67,15 @@ var handlers = sessionHandlers;
 
 
 
-// var response={
-//                 "speech": sym,
-//                 "displayText": "sym",
-//                 "data": {},
-//                 "contextOut": [],
-//                 "source": "DuckDuckGo"
-//               };
+var facebookResponse={
+               	  "speech": "",
+                    "displayText": "",
+                    "data": {
+                      "facebook": {
+                                "text":busFinalData
+                            }
+                    },
+                    "contextOut": [],
+                    "source": "DuckDuckGo"
+                  };
 //==============================================SERVER HOSTING CODE BLOCK====================================================
