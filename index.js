@@ -22,9 +22,32 @@ exports.handler = function(event, context, callback){
   if(event.hasOwnProperty('result'))//session from APIAI Webhook Request JSON
   {
     console.log("RequestFromAPI.AI");
-    //Prepare API.AI Response
     console.log("got here");
     console.log(event.originalRequest.data.postback.data);
+
+
+
+    var request = require("request");
+
+	var options = { method: 'POST',
+  	url: 'https://maps.googleapis.com/maps/api/geocode/json',
+  	qs: 
+   { latlng: '12.82514,80.2164979',
+     key: 'AIzaSyCyDHNIxXBmoO8EHoJJK8gAfR5rO55BTX4' },
+  	headers: 
+   { 'postman-token': '4f2daca8-4b06-1328-0317-a40b9ea7a2ac',
+     'cache-control': 'no-cache',
+     'app-id': '95e202a2',
+     'app-key': '562f45d3d9c8a9e2871825a93bb34807',
+     'content-type': 'application/json' } };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(JSON.parse(body).results[0].formatted_address);
+});
+
+
     
     }//FOR API.AI CONTEXTS
 
@@ -50,12 +73,3 @@ var handlers = sessionHandlers;
 //                 "source": "DuckDuckGo"
 //               };
 //==============================================SERVER HOSTING CODE BLOCK====================================================
-if (module === require.main) {
-  // [START server]
-  // Start the server
-  let server = app.listen(process.env.PORT || 8080, function () {
-    let port = server.address().port;
-    console.log('App listening on port %s', port);
-  });
-  // [END server]
-}
