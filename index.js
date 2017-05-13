@@ -23,6 +23,7 @@ exports.handler = function(event, context, callback){
   {
     console.log("RequestFromAPI.AI");
     //Prepare API.AI Response
+    console.log("got here");
     console.log(event.originalRequest.data.postback.data);
     
     }//FOR API.AI CONTEXTS
