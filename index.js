@@ -24,6 +24,24 @@ exports.handler = function(event, context, callback){
   	if (event.result.action=="input.welcome"){
     console.log("got here to find address");
     consle.log(JSON.parse(event).result.action)
+    var facebookResponse={
+               	  "speech": "",
+                    "displayText": "",
+                    "data": {
+                      "facebook": {
+                                "text":"please share your location",
+                                "quick_replies":[
+								  {
+								    "content_type":"location",
+								  }
+								]
+                            }
+                    },
+                    "contextOut": [],
+                    "source": "DuckDuckGo"
+                  };
+
+
     // console.log(event.originalRequest.data.postback.data);
     // var lat =event.originalRequest.data.postback.data.lat;
     // var long =event.originalRequest.data.postback.data.long;
