@@ -47,6 +47,17 @@ request(options, function (error, response, body) {
 
   	console.log(JSON.parse(body).results[0].formatted_address);
   	address=JSON.parse(body).results[0].formatted_address;
+  	var facebookResponse={
+               	  "speech": "",
+                    "displayText": "",
+                    "data": {
+                      "facebook": {
+                                "text":address
+                            }
+                    },
+                    "contextOut": [],
+                    "source": "DuckDuckGo"
+                  };
   	context.succeed(facebookResponse);
 });
 
@@ -64,15 +75,5 @@ else
 //var handlers contain all alexa intents sdk style.
 var handlers = sessionHandlers;
 //=================================================API.AI CONTEXTS CONTAINER=================================================
-var facebookResponse={
-               	  "speech": "",
-                    "displayText": "",
-                    "data": {
-                      "facebook": {
-                                "text":address
-                            }
-                    },
-                    "contextOut": [],
-                    "source": "DuckDuckGo"
-                  };
+
 //==============================================SERVER HOSTING CODE BLOCK====================================================
